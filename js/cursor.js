@@ -29,6 +29,9 @@ export default class Cursor {
                 opacity: 1,
             })
 
+            //Execute scale
+            this.onScaleMouse();
+
 
             //    requestAnimationFrame
             requestAnimationFrame(() => this.render())
@@ -39,6 +42,43 @@ export default class Cursor {
         }
         //    Assign the mouse function
         window.addEventListener('mousemove', this.onMouseMoveEv)
+    }
+
+    onScaleMouse = () => {
+
+        this.Item.forEach((link) => {
+
+            if (link.matches(':hover')) {
+                this.scaleAnimation(this.Cursor.children[0], 0.8)
+            }
+
+
+            link.addEventListener('mouseenter', () => {
+                this.scaleAnimation(this.Cursor.children[0], 0.8)
+            })
+            //    Scale down when not hover on media
+            link.addEventListener('mouseleave', () => {
+                this.scaleAnimation(this.Cursor.children[0], 0)
+            })
+
+            link.children[1].addEventListener('mouseenter', () => {
+                this.scaleAnimation(this.Cursor.children[0], 1.2)
+            })
+
+            link.children[1].addEventListener('mouseleave', () => {
+                this.scaleAnimation(this.Cursor.children[0], 0.8)
+            })
+
+        })
+    }
+
+    //Scale animation
+    scaleAnimation(el, amt) {
+        gsap.to(el, {
+            duration: 0.6,
+            scale: amt,
+            ease: 'Power3.easeOut'
+        })
     }
 
     render() {

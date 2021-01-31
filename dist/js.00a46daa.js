@@ -5606,6 +5606,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //Grab mouse position and set it to mouse state
 var mouse = {
   x: 0,
@@ -5620,6 +5622,28 @@ var Cursor = /*#__PURE__*/function () {
     var _this = this;
 
     _classCallCheck(this, Cursor);
+
+    _defineProperty(this, "onScaleMouse", function () {
+      _this.Item.forEach(function (link) {
+        if (link.matches(':hover')) {
+          _this.scaleAnimation(_this.Cursor.children[0], 0.8);
+        }
+
+        link.addEventListener('mouseenter', function () {
+          _this.scaleAnimation(_this.Cursor.children[0], 0.8);
+        }); //    Scale down when not hover on media
+
+        link.addEventListener('mouseleave', function () {
+          _this.scaleAnimation(_this.Cursor.children[0], 0);
+        });
+        link.children[1].addEventListener('mouseenter', function () {
+          _this.scaleAnimation(_this.Cursor.children[0], 1.2);
+        });
+        link.children[1].addEventListener('mouseleave', function () {
+          _this.scaleAnimation(_this.Cursor.children[0], 0.8);
+        });
+      });
+    });
 
     this.Cursor = el;
     this.Cursor.style.opacity = 0;
@@ -5647,7 +5671,10 @@ var Cursor = /*#__PURE__*/function () {
         duration: 1,
         ease: "Power3.easeOut",
         opacity: 1
-      }); //    requestAnimationFrame
+      }); //Execute scale
+
+
+      _this.onScaleMouse(); //    requestAnimationFrame
 
 
       requestAnimationFrame(function () {
@@ -5662,6 +5689,16 @@ var Cursor = /*#__PURE__*/function () {
   }
 
   _createClass(Cursor, [{
+    key: "scaleAnimation",
+    //Scale animation
+    value: function scaleAnimation(el, amt) {
+      _gsap.gsap.to(el, {
+        duration: 0.6,
+        scale: amt,
+        ease: 'Power3.easeOut'
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
