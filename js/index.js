@@ -1,4 +1,4 @@
-
+import Cursor from "./cursor";
 window.onload = () => {
-  console.log("hey")
+  const cursor = new Cursor(document.querySelector('.cursor'))
 };
