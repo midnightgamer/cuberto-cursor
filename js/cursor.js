@@ -49,11 +49,13 @@ export default class Cursor {
         this.Item.forEach((link) => {
 
             if (link.matches(':hover')) {
+
                 this.scaleAnimation(this.Cursor.children[0], 0.8)
             }
 
 
             link.addEventListener('mouseenter', () => {
+                this.setVideo(link)
                 this.scaleAnimation(this.Cursor.children[0], 0.8)
             })
             //    Scale down when not hover on media
@@ -79,6 +81,20 @@ export default class Cursor {
             scale: amt,
             ease: 'Power3.easeOut'
         })
+    }
+
+    //Set Video
+    setVideo(el) {
+        let src = el.getAttribute('data-video-src');
+        let video = document.querySelector(`#${src}`);
+        let siblings = getSiblings(video)
+
+        if (video.id == src) {
+            gsap.set(video, {zIndex: 4, opacity: 1})
+            siblings.forEach(item => {
+                gsap.set(item, {zIndex: 1, opacity: 0})
+            })
+        }
     }
 
     render() {

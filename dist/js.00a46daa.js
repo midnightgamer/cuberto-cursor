@@ -5630,6 +5630,8 @@ var Cursor = /*#__PURE__*/function () {
         }
 
         link.addEventListener('mouseenter', function () {
+          _this.setVideo(link);
+
           _this.scaleAnimation(_this.Cursor.children[0], 0.8);
         }); //    Scale down when not hover on media
 
@@ -5697,6 +5699,28 @@ var Cursor = /*#__PURE__*/function () {
         scale: amt,
         ease: 'Power3.easeOut'
       });
+    } //Set Video
+
+  }, {
+    key: "setVideo",
+    value: function setVideo(el) {
+      var src = el.getAttribute('data-video-src');
+      var video = document.querySelector("#".concat(src));
+      var siblings = (0, _utils.getSiblings)(video);
+
+      if (video.id == src) {
+        _gsap.gsap.set(video, {
+          zIndex: 4,
+          opacity: 1
+        });
+
+        siblings.forEach(function (item) {
+          _gsap.gsap.set(item, {
+            zIndex: 1,
+            opacity: 0
+          });
+        });
+      }
     }
   }, {
     key: "render",
