@@ -5639,9 +5639,13 @@ var Cursor = /*#__PURE__*/function () {
           _this.scaleAnimation(_this.Cursor.children[0], 0);
         });
         link.children[1].addEventListener('mouseenter', function () {
+          _this.Cursor.classList.add('media-blend');
+
           _this.scaleAnimation(_this.Cursor.children[0], 1.2);
         });
         link.children[1].addEventListener('mouseleave', function () {
+          _this.Cursor.classList.remove('media-blend');
+
           _this.scaleAnimation(_this.Cursor.children[0], 0.8);
         });
       });

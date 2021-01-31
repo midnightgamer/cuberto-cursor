@@ -64,10 +64,12 @@ export default class Cursor {
             })
 
             link.children[1].addEventListener('mouseenter', () => {
+                this.Cursor.classList.add('media-blend')
                 this.scaleAnimation(this.Cursor.children[0], 1.2)
             })
 
             link.children[1].addEventListener('mouseleave', () => {
+                this.Cursor.classList.remove('media-blend')
                 this.scaleAnimation(this.Cursor.children[0], 0.8)
             })
 
